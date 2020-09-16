@@ -3,8 +3,7 @@ FROM debian:testing
 WORKDIR /opt
 
 RUN apt-get update \
-  && apt-get install -y wget openssl curl procps gcc patch bzip2 gawk g++ autoconf automake bison libffi-dev libsqlite3-dev libtool libyaml-dev make pkg-config sqlite3 zlib1g-dev libgmp-dev libssl-dev less openjdk-14-jre-headless git nodejs npm lua5.3 luajit clang llvm vim libpcre3-dev libevent-dev libatomic1 python2.7 cython
-
+  && apt-get install -y wget openssl curl procps gcc patch bzip2 gawk g++ autoconf automake bison libffi-dev libsqlite3-dev libtool libyaml-dev make pkg-config sqlite3 zlib1g-dev libgmp-dev libssl-dev less openjdk-14-jre-headless git nodejs npm lua5.3 luajit clang llvm vim libpcre3-dev libevent-dev libatomic1 python2.7 python2.7-dev libpython2.7-dev python3-dev cython3
 # questions libedit-dev libgdbm-dev libncurses5-dev
 
 # https://www.ruby-lang.org/en/downloads/
@@ -17,9 +16,9 @@ RUN export VERSION=ruby-2.7.1 \
     && cd .. && rm -rf $VERSION    
 ENV PATH="/opt/ruby/bin:${PATH}"
 
-RUN curl -L 'https://bitbucket.org/pypy/pypy/downloads/pypy2.7-v7.3.1-linux64.tar.bz2' > l.tar.bz2 \
+RUN curl -L 'https://downloads.python.org/pypy/pypy2.7-v7.3.1-linux64.tar.bz2' > l.tar.bz2 \
   && tar xjf l.tar.bz2 \
-  && curl -L 'https://bitbucket.org/pypy/pypy/downloads/pypy2.7-v7.3.1-src.tar.bz2' > s.tar.bz2 \
+  && curl -L 'https://downloads.python.org/pypy/pypy2.7-v7.3.1-src.tar.bz2' > s.tar.bz2 \
   && tar xjf s.tar.bz2 \
   && rm *.tar.bz2
 
@@ -36,19 +35,19 @@ RUN git clone https://github.com/kostya/topaz.git \
 ENV PATH="/opt/topaz/bin:$PATH"  
 
 # https://github.com/crystal-lang/crystal/releases
-ARG CRYSTAL=0.34.0-1
+ARG CRYSTAL=0.35.1
 RUN wget --progress=dot:giga -O - \
-    https://github.com/crystal-lang/crystal/releases/download/0.34.0/crystal-$CRYSTAL-linux-x86_64.tar.gz \
+    https://github.com/crystal-lang/crystal/releases/download/$CRYSTAL/crystal-$CRYSTAL-1-linux-x86_64.tar.gz \
     | tar -xz
-ENV PATH="/opt/crystal-$CRYSTAL/bin:${PATH}"
+ENV PATH="/opt/crystal-$CRYSTAL-1/bin:${PATH}"
 
-RUN curl -L 'https://bitbucket.org/pypy/pypy/downloads/pypy3.6-v7.3.1-linux64.tar.bz2' > l.tar.bz2 \
+RUN curl -L 'https://downloads.python.org/pypy/pypy3.6-v7.3.1-linux64.tar.bz2' > l.tar.bz2 \
   && tar xjf l.tar.bz2 \
   && rm *.tar.bz2
 ENV PATH="/opt/pypy3.6-v7.3.1-linux64/bin:${PATH}"
 
 # https://github.com/graalvm/graalvm-ce-builds/releases
-ARG GRAALVM=20.0.0
+ARG GRAALVM=20.2.0
 RUN wget --progress=dot:giga -O - \
     https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-$GRAALVM/graalvm-ce-java11-linux-amd64-$GRAALVM.tar.gz \
     | tar -xz \
@@ -61,7 +60,7 @@ RUN gu install python \
     && ln -s /opt/graalvm-ce-java11-$GRAALVM/bin/graalpython /usr/bin/graalpython
 
 # https://www.jruby.org/download
-ARG JRUBY=9.2.11.1
+ARG JRUBY=9.2.13.0
 RUN wget --progress=dot:giga -O - \
     https://repo1.maven.org/maven2/org/jruby/jruby-dist/$JRUBY/jruby-dist-$JRUBY-bin.tar.gz \
     | tar -xz \
@@ -82,6 +81,8 @@ RUN set -eux && \
     rm -fr "$JYTHON_HOME"/Docs "$JYTHON_HOME"/Demo "$JYTHON_HOME"/tests && \
     rm -f jython-installer.jar && \
     ln -sfv "$JYTHON_HOME/bin/"* /usr/local/bin/ 
+
+RUN pip install cython
 
 #ADD https://rubinius-binaries-rubinius-com.s3-us-west-2.amazonaws.com/ubuntu/16.04/x86_64/rubinius-5.0.tar.bz2 /tmp/rubinius.tar.bz2
 #RUN cd /opt && tar xvjf /tmp/rubinius.tar.bz2 && rm /tmp/rubinius.tar.bz2 \

@@ -26,6 +26,7 @@ NAMES = {
   "pypy" => %w{Python2 Pypy},
   "pypy3" => %w{Python3 Pypy},
   "./bin_cython" => %w{Python2 Cython},
+  "./bin_cython3" => %w{Python3 Cython},
   "lua" => %w{Lua},
   "luajit" => %w{Lua JIT},
   "node" => %w{Javascript Node},
@@ -35,7 +36,7 @@ NAMES = {
   "jython" => %w{Python2 Jython}
 }
 
-BINS = %w{./bin_c ./bin_cr ./bin_cython}
+BINS = %w{./bin_c ./bin_cr ./bin_cython ./bin_cython3}
 RUBIES = ["ruby", "topaz", "jruby", "truffleruby", ["ruby", "--jit"], ["truffleruby", "--jvm"]] # , "rbx"
 LUAS = ["lua", "luajit"]
 PYTHONS = ["python2.7", "python3.8", "pypy", "pypy3", "graalpython", ["graalpython", "--jvm"], "jython"]
