@@ -11,3 +11,4 @@ core
 todo
 *.log
 .jython_cache/
+*.build/

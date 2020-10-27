@@ -11,6 +11,7 @@ NAMES = {
   "./bin_cr" => %w{Crystal},
   "./bin_c" => %w{C gcc},
   "./bin_cpp" => %w{C++ g++},
+  "./bin_nuitka" => %w{Python3 Nuitka}, 
   "ruby" => %w{Ruby},
   "ruby --jit" => %W{Ruby JIT},
   "topaz" => %w{Ruby Topaz},
@@ -36,7 +37,7 @@ NAMES = {
   "jython" => %w{Python2 Jython}
 }
 
-BINS = %w{./bin_c ./bin_cr ./bin_cython ./bin_cython3}
+BINS = %w{./bin_c ./bin_cr ./bin_cython ./bin_cython3 ./bin_nuitka}
 RUBIES = ["ruby", "topaz", "jruby", "truffleruby", ["ruby", "--jit"], ["truffleruby", "--jvm"]] # , "rbx"
 LUAS = ["lua", "luajit"]
 PYTHONS = ["python2.7", "python3.8", "pypy", "pypy3", "graalpython", ["graalpython", "--jvm"], "jython"]

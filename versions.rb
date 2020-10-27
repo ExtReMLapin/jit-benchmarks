@@ -22,6 +22,7 @@ graalpython --version
 graalpython --jvm --version
 echo "GraalNode $(graalnode --version)"
 jython --version 2>&1
+echo "Nuitka $(nuitka --version | head -n 1)"
 V
 
 puts "## Versions: "

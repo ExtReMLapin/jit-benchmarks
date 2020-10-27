@@ -84,6 +84,13 @@ RUN set -eux && \
 
 RUN pip install cython
 
+ARG NUITKA=0.6.9.3
+RUN wget --progress=dot:giga -O - \
+    http://nuitka.net/releases/Nuitka-$NUITKA.tar.gz \
+    | tar -xz \
+    && sed -i -e 's/env python/env python3.8/g' /opt/Nuitka-$NUITKA/bin/nuitka
+ENV PATH=$PATH:/opt/Nuitka-$NUITKA/bin
+
 #ADD https://rubinius-binaries-rubinius-com.s3-us-west-2.amazonaws.com/ubuntu/16.04/x86_64/rubinius-5.0.tar.bz2 /tmp/rubinius.tar.bz2
 #RUN cd /opt && tar xvjf /tmp/rubinius.tar.bz2 && rm /tmp/rubinius.tar.bz2 \
 #   && ln -sf /opt/rubinius/5.0/bin/rbx /usr/bin/rbx
